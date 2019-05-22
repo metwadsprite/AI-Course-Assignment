@@ -50,10 +50,11 @@ class TrackPiece():
             edge.position.x += distance[0]
             edge.position.y += distance[1]
 
-    def move_to_con(self, edge, piece):
-        for con_edge in piece.edges:
-            if con_edge.type != edge.type and piece.connected[con_edge] == None:
-                edge_to_connect = con_edge
+    def move_to_con(self, edge, piece, edge_to_connect = None):
+        if edge_to_connect == None:
+            for con_edge in piece.edges:
+                if con_edge.type != edge.type and piece.connected[con_edge] == None:
+                    edge_to_connect = con_edge
 
         rotate_deg = edge.angle - edge_to_connect.angle
         piece.rotate(rotate_deg)
@@ -62,8 +63,6 @@ class TrackPiece():
             edge.position.y - edge_to_connect.position.y)
 
         piece.move(move_dist)
-
-        return edge_to_connect
 
     def connect(self, edge, piece, edge_to_connect):
         self.connected[edge] = piece
@@ -107,7 +106,7 @@ class Track():
                                 return True
         return False
     
-    def add_piece(self, con_piece, con_edge_id, new_piece):
+    def add_piece(self, con_piece, con_edge_id, new_piece, newpc_edge_con_id = None):
         if self.start == None:
             self.start = new_piece
             return
@@ -116,14 +115,14 @@ class Track():
         if con_piece.connected[con_edge] != None:
             return
 
-        edge_to_con = con_piece.move_to_con(con_edge, new_piece)
+        con_piece.move_to_con(con_edge, new_piece, newpc_edge_con_id)
         
         if self.is_overlap(new_piece):
-            new_piece = None
-            return
+            return False
         
-        con_piece.connect(con_edge, new_piece, edge_to_con)
         self.merge_branches(new_piece)
+
+        return True
 
 
     def plot(self):

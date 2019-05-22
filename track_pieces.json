@@ -1,6 +1,6 @@
 [
     {
-        "count": 12,
+        "count": 2,
         "edges": [
             {
                 "type": "female",
@@ -79,7 +79,7 @@
         ]
     },
     {
-        "count":16,
+        "count":2,
         "edges":[
             {
                 "type":"female",
