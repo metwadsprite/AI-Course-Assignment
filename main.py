@@ -1,4 +1,4 @@
-import abstractions as abstr
+import problem as pb
 import matplotlib.pyplot as plt
 from copy import deepcopy
 import json
@@ -16,13 +16,13 @@ for piece in track_pieces:
     piece_edges = []
     
     for edge in piece.edges:
-        piece_edges.append(abstr.Edge(edge.type, edge.angle, abstr.Point(edge.position.x, edge.position.y)))
+        piece_edges.append(pb.Edge(edge.type, edge.angle, pb.Point(edge.position.x, edge.position.y)))
     
-    pieces.append(abstr.TrackPiece(piece_edges))
+    pieces.append(pb.TrackPiece(piece_edges))
     piece_qty[pieces[-1]] = piece.count
 
 
-track = abstr.Track()
+track = pb.Track()
 track.start = deepcopy(pieces[3])
 
 while sum(piece_qty.values()) != 0:
