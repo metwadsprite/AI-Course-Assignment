@@ -1,4 +1,5 @@
 import objects as obj
+import utils
 from copy import deepcopy
 
 
@@ -6,6 +7,19 @@ class ProblemState:
     def __init__(self, track, pieces_qty):
         self.track = track
         self.pieces_qty = pieces_qty
+
+    def __lt__(self, state):
+        sum_this = 0
+        sum_comp = 0
+        
+        for piece in self.pieces_qty:
+            sum_this += self.pieces_qty[piece]
+        
+        for piece in state.pieces_qty:
+            sum_comp += state.pieces_qty[piece]
+
+        return sum_this < sum_comp
+
 
 
 class RailTrackProblem:
@@ -41,17 +55,24 @@ class RailTrackProblem:
 
     def end_test(self, state):
         if len(state.track.get_open_edges()) == 0:
-            return True
-        else:
-            is_empty = True
+            ret_value = True
             for val in state.pieces_qty:
                 if state.pieces_qty[val] != 0:
-                    is_empty = False
+                    ret_value = False
 
-            return is_empty
+            return ret_value
 
     def h(self, state):
-        return len(state.track.get_open_edges())
+        edges = state.track.get_open_edges()
+        origin = obj.Point(0, 0)
+        sum_dist = 0
+
+        for edge in edges:
+            if edge[0] == None:
+                return 1
+            sum_dist += utils.distance(edge[0].position, origin)
+        
+        return len(edges) + sum_dist
 
 
 class TreeNode:
@@ -63,8 +84,10 @@ class TreeNode:
         self.depth = 0
         if parent:
             self.depth = parent.depth + 1
-
         print(self.depth)
+
+    def __lt__(self, node):
+        return self.state < node.state
 
     def expand(self, problem):
         return [self.child_node(problem, action) for action in problem.actions(self.state)]
