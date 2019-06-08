@@ -21,7 +21,6 @@ class ProblemState:
         return sum_this < sum_comp
 
 
-
 class RailTrackProblem:
 
     def actions(self, state):
@@ -84,7 +83,6 @@ class TreeNode:
         self.depth = 0
         if parent:
             self.depth = parent.depth + 1
-        print(self.depth)
 
     def __lt__(self, node):
         return self.state < node.state

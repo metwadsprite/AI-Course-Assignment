@@ -62,6 +62,6 @@ def informed_bfs(problem, f):
     return None
 
 
-def astar(problem, h=None):
+def best_first_search(problem, h=None):
     h = utils.memoize(h or problem.h, 'h')
-    return informed_bfs(problem, lambda  n: n.depth + h(n.state))
+    return informed_bfs(problem, lambda  n: h(n.state))

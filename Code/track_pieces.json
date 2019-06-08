@@ -1,0 +1,44 @@
+[
+    {
+        "count": 2,
+        "edges": [
+            {
+                "type": "female",
+                "angle": 0,
+                "position": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "type": "male",
+                "angle": 0,
+                "position": {
+                    "x": 130,
+                    "y": 0
+                }
+            }
+        ]
+    },
+    {
+        "count":8,
+        "edges":[
+            {
+                "type":"female",
+                "angle":0,
+                "position":{
+                    "x":0,
+                    "y":0
+                }
+            },
+            {
+                "type":"male",
+                "angle":45,
+                "position":{
+                    "x":100,
+                    "y":30
+                }
+            }
+        ]
+    }
+]
